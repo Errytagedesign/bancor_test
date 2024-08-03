@@ -19,7 +19,11 @@ const GlobalContext = createContext<GlobalState | undefined>(undefined);
 
 // Define the provider component
 const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string>(() => {
+    const storedEmail = localStorage.getItem('userEmail');
+    return storedEmail ? JSON.parse(storedEmail) : false;
+  });
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     const storedStatus = localStorage.getItem('isLoggedIn');
     return storedStatus ? JSON.parse(storedStatus) : false;
@@ -27,7 +31,8 @@ const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
-  }, [isLoggedIn]);
+    localStorage.setItem('userEmail', JSON.stringify(email));
+  }, [isLoggedIn, email]);
 
   return (
     <GlobalContext.Provider

@@ -7,6 +7,7 @@ import Spinner from '@/spinner/Spinner';
 import ErrorMessage from '@/components/ErrorMessage';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import './style.scss';
+import BrandLogo from '@/components/BrandLogo';
 
 const initialValues = {
   firstname: '',
@@ -26,12 +27,11 @@ const Signup = () => {
   );
   const [formData, setFormData] = useState<ISignUp>(initialValues);
   const [rolesData, setRolesData] = useState([]);
+  const navigate = useNavigate();
 
   const showPassword = (id: string) => {
     setPasswordType((prev) => ({ ...prev, [id]: !prev[id] }));
   };
-
-  const navigate = useNavigate();
 
   const handleChange = (e: FormEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target as HTMLInputElement;
@@ -81,9 +81,12 @@ const Signup = () => {
 
   return (
     <main className='signup flex flex-col items-center justify-center gap-5 text-center w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
+      <article className='w-full md:w-3/12 mx-auto my-4'>
+        <BrandLogo />
+      </article>
       <article className='  flex flex-col justify-center gap-7'>
         <hgroup>
-          <h1>Create an Account With Your Email</h1>
+          <h1 className='mb-3'>Create an Account With Your Email</h1>
           <h5>
             Already have an Account?{' '}
             <Link to='/signin' className='text-pryColor font-bold'>

@@ -10,6 +10,7 @@ import Spinner from '@/spinner/Spinner';
 import { FormEvent, useState } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import { useGlobalContext } from '@/context/GlobalContext';
+import BrandLogo from '@/components/BrandLogo';
 
 const initialValues = {
   emailAddress: '',
@@ -69,11 +70,16 @@ const Signin = () => {
 
   return (
     <main className='signup flex flex-col items-center justify-center gap-5 w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
+      <article className='w-full md:w-3/12 mx-auto my-4'>
+        <BrandLogo />
+      </article>
       <article className='text-center'>
-        <h1>Welcome Back, Kindly Login</h1>
+        <h1 className='mb-3'>Welcome Back, Kindly Login</h1>
         <h5>
           Don&apos;t have an account?{' '}
-          <Link to='/signup'>Create Account Here</Link>
+          <Link to='/signup' className='text-pryColor font-bold'>
+            Create Account Here
+          </Link>
         </h5>
       </article>
       <form
@@ -120,7 +126,7 @@ const Signin = () => {
           </div>
 
           <div className=' font-bold text-end mt-2'>
-            <Link to='/resetpasswordrequest' className='!text-pryColor'>
+            <Link to='/forgot-password' className='!text-pryColor'>
               Forgot Password
             </Link>
           </div>

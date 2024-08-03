@@ -1,20 +1,16 @@
-import './Signin/login-screen.css';
-import Aside from './Aside';
-import * as Yup from 'yup';
 import * as API from '@/api/apis';
 import Spinner from '@/spinner/Spinner';
 import { useGlobalHooks } from '@/Hooks/globalHooks';
 import ErrorMessage from '@/components/ErrorMessage';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
-
-const initialValues = {
-  email: '',
-};
+import { useGlobalContext } from '@/context/GlobalContext';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPasswordRequest = () => {
-  const [formData, setFormData] = useState(initialValues);
-  const [linkSent, setLinkSent] = useState(false);
+  const [emailAddress, setEmailAddress] = useState('');
+  const { setEmail } = useGlobalContext();
+  const navigate = useNavigate();
 
   const {
     errors: customErrors,
@@ -23,20 +19,17 @@ const ForgotPasswordRequest = () => {
     loading,
   } = useGlobalHooks();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     setLoading({ ['pass']: true });
-
-    API.requestPasswordChange(formData)
+    setEmail(emailAddress);
+    API.requestPasswordChange({ emailAddress })
       .then((res) => {
-        const successMessage = {
-          success: true,
-          message: res.data.message,
-        };
-        toast.success(successMessage.message);
+        console.log(res);
+        toast.success(res?.data?.message);
         setLoading({ ['pass']: false });
-
-        setLinkSent(true);
-        // navigate('/resetpassword');
+        navigate('/reset-password');
       })
       .catch((err) => {
         const erroMessage = {
@@ -54,67 +47,36 @@ const ForgotPasswordRequest = () => {
       });
   };
 
-  const signUpSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email address is required'),
-  });
-
   return (
-    <main className='categories flex justify-between  bg-white'>
-      <section className='white w-full lg:w-[60%] px-3 lg:px-10'>
-        {linkSent ? (
-          <section className='categoryS'>
-            <hgroup>
-              <h1>Reset Password Link Sent</h1>
-              <h5>
-                A reset link was sent to your email, please follow the
-                instruction to reset your mail
-              </h5>
-            </hgroup>
-            <form className='mt-10' onSubmit={handleSubmit}>
-              <button className='main-btn w-full' type='submit'>
-                {loading ? <Spinner /> : 'Didn’t get it? Resend Link'}
-              </button>
-            </form>
+    <main className='signup flex flex-col items-center justify-center gap-5 w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
+      <article className='text-center'>
+        <h1>Forgot password?</h1>
+        <h5>Enter your email and we will send you a reset instruction</h5>
+      </article>
+      <form onSubmit={handleSubmit} className='w-full'>
+        <article className=' w-full mt-5'>
+          <input
+            id='email'
+            name='email'
+            type='email'
+            placeholder='Enter your email address'
+            className='form-control'
+            onChange={(e) => setEmailAddress(e.target.value)}
+            required
+          />
+        </article>
+        <article className='mt-10'>
+          <button className='main-btn w-full' type='submit'>
+            {loading['pass'] ? <Spinner /> : ' Reset Password'}
+          </button>
+        </article>
 
-            <div className='flex justify-center mt-6'>
-              {customErrors.error && (
-                <ErrorMessage message={customErrors.errMessage} />
-              )}
-            </div>
-          </section>
-        ) : (
-          <section className='categoryS'>
-            <article>
-              <h1>Forgot password?</h1>
-              <h5>Enter your email and we will send you a reset instruction</h5>
-            </article>
-            <form onSubmit={handleSubmit}>
-              <article className=' w-full mt-5'>
-                <input
-                  id='email'
-                  name='email'
-                  type='email'
-                  placeholder='Enter your email address'
-                  required
-                />
-              </article>
-              <article className='mt-10'>
-                <button className='main-btn w-full' type='submit'>
-                  {loading ? <Spinner /> : ' Reset Password'}
-                </button>
-              </article>
-
-              <div className='flex justify-center mt-6'>
-                {customErrors.error && (
-                  <ErrorMessage message={customErrors.errMessage} />
-                )}
-              </div>
-            </form>
-          </section>
-        )}
-      </section>
+        <div className='flex justify-center mt-6'>
+          {customErrors.error && (
+            <ErrorMessage message={customErrors.errMessage} />
+          )}
+        </div>
+      </form>
     </main>
   );
 };

@@ -22,12 +22,14 @@ export const verifyPassword = async (formData: {
   return await baseAPI.post(`/api/Account/VerifyPasswordCode`, formData);
 };
 
-export const requestPasswordChange = async (formData: { email: string }) => {
+export const requestPasswordChange = async (formData: {
+  emailAddress: string;
+}) => {
   return await baseAPI.post(`/api/Account/ForgotPassword`, formData);
 };
 
-export const resetPassword = async (formData: IResetPassword, token: any) => {
-  return await baseAPI.post(`/auth/reset-password?token=${token}`, formData);
+export const resetPassword = async (formData: IResetPassword) => {
+  return await baseAPI.post(`/api/Account/ResetPassword`, formData);
 };
 
 export const getRoles = async () => {
