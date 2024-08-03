@@ -1,0 +1,290 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  @apply w-[95%] lg:w-[90%] mx-auto;
+}
+
+:root {
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --pryColor: #53127d;
+  --secColor: #ffa24f;
+  --white: #fff;
+  --black: #202124;
+  --Grey1: #bdc0ce;
+  --Grey2: #f4f5f8;
+  --Grey3: #7e8494;
+  --negative: #ff3b2d;
+}
+
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+a:hover {
+  color: inherit;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--black);
+  background: #fff;
+}
+
+strong {
+  font-weight: bold;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+img {
+  width: 100% !important;
+  height: auto;
+}
+
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+small {
+  margin: 0;
+  padding: 0;
+  color: var(--black);
+}
+
+h1,
+h2 {
+  font-size: 1.9rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+p {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+em {
+  color: var(--negative);
+  font-size: inherit;
+}
+
+.inputWrapper {
+  width: 100%;
+}
+
+.inputWrapper small {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ====Btns==== */
+
+.main-btn {
+  background: var(--pryColor);
+  border-radius: 4px;
+  padding: 0.6em 1em;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.outline-btn {
+  border: solid 1px var(--pryColor);
+  border-radius: 4px;
+  padding: 0.6em 1em;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pryColor);
+}
+
+.negative-btn {
+  background: var(--negative);
+  border-radius: 4px;
+  padding: 0.6em 1em;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.positive-btn {
+  border: solid 1px var(--positive);
+  border-radius: 4px;
+  padding: 0.6em 2em;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--positive);
+}
+
+.main-btn.disabled,
+.main-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.deleteIcon {
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  display: grid;
+  place-items: center;
+  background-color: var(--negative);
+  color: var(--white);
+  /* padding: 0.5em; */
+  cursor: pointer;
+}
+
+/* ====Btns==== */
+
+/* ====Inputs Starts==== */
+
+input::placeholder {
+  font-size: 13px;
+  font-weight: 200;
+  color: var(--Grey6) !important;
+}
+
+input[type='radio'] {
+  width: 1.5em;
+  height: 1.5em;
+  border: solid 1px var(--Grey2);
+}
+
+input:checked[type='radio'] {
+  width: 1.5em;
+  height: 1.5em;
+  border: solid 1px var(--Grey2);
+  background-color: var(--pryColor);
+}
+
+textarea,
+select,
+input {
+  padding: 0.77em 1em !important;
+}
+
+textarea:focus,
+select:focus,
+input:focus {
+  border: solid 2.1px #400080;
+  outline: 0;
+  border-radius: 8px;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+select {
+  appearance: none;
+  -ms-progress-appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: url('./assets/selectIcon.svg') no-repeat;
+  background-position: 95% 50%;
+}
+
+/* ====Inputs End ==== */
+
+.active {
+  color: var(--pryColor);
+  padding: 0.8em 1em;
+  border-bottom: solid 2px var(--pryColor);
+  font-weight: 700;
+}
+
+.notActive {
+  color: var(--black);
+  padding: 0.8em 1em;
+  font-weight: 700;
+}
+
+.errors {
+  border: solid var(--negative) 1px !important;
+}
+
+.error_message {
+  color: var(--negative);
+  font-weight: 300;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 500px) {
+  .inputWrapper {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  h1,
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+}
