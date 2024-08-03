@@ -35,3 +35,7 @@ export const resetPassword = async (formData: IResetPassword) => {
 export const getRoles = async () => {
   return await baseAPI.get(`/api/Role/Roles`);
 };
+
+export const getCurrentUser = async () => {
+  return await baseAPI.get(`/api/User/Profile`);
+};

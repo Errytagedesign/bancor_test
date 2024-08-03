@@ -6,15 +6,6 @@ export const useGlobalHooks = () => {
   );
   const [errors, setErrors] = useState({ error: false, errMessage: '' });
 
-  const getColor = (rating: number, index: number) => {
-    if (rating >= index + 1) {
-      // Color for rated stars
-      return 'rated';
-    }
-    // Color for unrated stars
-    return 'noRating';
-  };
-
   const formatDate = (dateString: Date) => {
     const date = new Date(dateString);
 
@@ -44,7 +35,6 @@ export const useGlobalHooks = () => {
   };
 
   return {
-    getColor,
     loading,
     setLoading,
     errors,
