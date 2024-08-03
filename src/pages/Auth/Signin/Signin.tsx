@@ -1,6 +1,4 @@
-import './login-screen.css';
 import * as API from '@/api/apis';
-
 import ErrorMessage from '@/components/ErrorMessage';
 import { useCookies } from '@/Hooks/cookiesHook';
 import { Link, useNavigate } from 'react-router-dom';
@@ -70,7 +68,7 @@ const Signin = () => {
 
   return (
     <main className='signup flex flex-col items-center justify-center gap-5 w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
-      <article className='w-full md:w-3/12 mx-auto my-4'>
+      <article className='w-5/12 md:w-3/12 mx-auto my-4'>
         <BrandLogo />
       </article>
       <article className='text-center'>

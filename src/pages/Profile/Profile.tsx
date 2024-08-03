@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import * as API from '@/api/apis';
 import { useGlobalHooks } from '@/Hooks/globalHooks';
 import { FaCheckCircle } from 'react-icons/fa';

@@ -8,6 +8,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import './style.scss';
 import BrandLogo from '@/components/BrandLogo';
+import { useGlobalContext } from '@/context/GlobalContext';
 
 const initialValues = {
   firstname: '',
@@ -25,6 +26,7 @@ const Signup = () => {
   const [passwordType, setPasswordType] = useState<{ [key: string]: boolean }>(
     {},
   );
+  const { setEmail } = useGlobalContext();
 
   const [formData, setFormData] = useState<ISignUp>(initialValues);
   const [rolesData, setRolesData] = useState([]);
@@ -53,12 +55,13 @@ const Signup = () => {
     }
 
     setErrors({ error: false, errMessage: '' });
+    setEmail(formData?.emailaddress);
 
     API.SignUp(formData)
       .then((res) => {
         console.log(res);
         setLoading({ ['signup']: false });
-        navigate('/');
+        navigate('/verify-email');
       })
       .catch((err) => {
         console.log(err);
@@ -76,16 +79,16 @@ const Signup = () => {
     fetchRoles();
   }, []);
 
-  console.log(rolesData);
-
   return (
-    <main className='signup flex flex-col items-center justify-center gap-5 text-center w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
-      <article className='w-full md:w-3/12 mx-auto my-4'>
+    <main className='signup flex flex-col items-center justify-center gap-5 w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
+      <article className='w-full md:w-2/12 mx-auto my-2'>
         <BrandLogo />
       </article>
-      <article className='  flex flex-col justify-center gap-7'>
+      <article className='  flex flex-col justify-center gap-4'>
         <hgroup>
-          <h1 className='mb-3'>Create an Account With Your Email</h1>
+          <h1 className='mb-3  text-center'>
+            Create an Account With Your Email
+          </h1>
           <h5>
             Already have an Account?{' '}
             <Link to='/signin' className='text-pryColor font-bold'>
@@ -96,9 +99,10 @@ const Signup = () => {
 
         <form
           onSubmit={handleSubmit}
-          className='flex flex-wrap gap-2 justify-between w-full'
+          className='flex flex-wrap gap-4 justify-between w-full'
         >
           <div className='inputWrapper'>
+            <label htmlFor='firstname'> First Name</label>
             <input
               id='firstname'
               name='firstname'
@@ -106,11 +110,12 @@ const Signup = () => {
               placeholder='Input first name'
               defaultValue={formData.firstname}
               onChange={handleChange}
-              className='form-control'
+              className='form-control mt-2'
               required
             />
           </div>
           <div className='inputWrapper'>
+            <label htmlFor='lastname'> First Name</label>
             <input
               name='lastname'
               id='lastname'
@@ -118,11 +123,12 @@ const Signup = () => {
               placeholder='Input your last name here'
               defaultValue={formData.lastname}
               onChange={handleChange}
-              className='form-control'
+              className='form-control mt-2'
               required
             />
           </div>
           <div className='inputWrapper'>
+            <label htmlFor='middlename'> Middle Name</label>
             <input
               name='middlename'
               id='middlename'
@@ -130,15 +136,16 @@ const Signup = () => {
               placeholder='Input your middle name here'
               defaultValue={formData.middlename}
               onChange={handleChange}
-              className='form-control'
+              className='form-control mt-2'
             />
           </div>
           <div className='inputWrapper'>
+            <label htmlFor='phonenumber'> Phone Number</label>
             <input
               name='phonenumber'
               id='phonenumber'
               type='text'
-              placeholder='Input your phone number'
+              placeholder='Enter your phone number'
               defaultValue={formData.phonenumber}
               onChange={handleChange}
               className='form-control'
@@ -148,12 +155,13 @@ const Signup = () => {
           </div>
 
           <article className='inputWrapper'>
+            <label htmlFor='emailaddress'> Email Address</label>
             <input
               id='emailaddress'
               name='emailaddress'
               type='email'
               placeholder='Enter your email address'
-              className='form-control'
+              className='form-control mt-2'
               defaultValue={formData.emailaddress}
               onChange={handleChange}
               required
@@ -161,6 +169,7 @@ const Signup = () => {
           </article>
 
           <article className='inputWrapper'>
+            <label htmlFor='role'> User Role</label>
             <select
               id='role'
               name='role'
@@ -172,7 +181,6 @@ const Signup = () => {
                   role: parseInt(e.target.value),
                 }))
               }
-              // required
             >
               <option value=''>Select Role</option>
               {rolesData?.map(({ roleID, roleName }) => (
@@ -183,12 +191,13 @@ const Signup = () => {
             </select>
           </article>
           <article className='inputWrapper'>
+            <label htmlFor='password'> Enter Password</label>
             <div className=' w-full passwordWrapper'>
               <input
                 id='password'
                 name='password'
                 type={passwordType['password'] ? 'text' : 'password'}
-                placeholder='Create a strong password'
+                placeholder='Create password'
                 className='form-control'
                 defaultValue={formData.password}
                 onChange={handleChange}
@@ -204,12 +213,13 @@ const Signup = () => {
             </div>
           </article>
           <article className='inputWrapper'>
+            <label htmlFor='confirmPassword'> Confirm Password</label>
             <div className=' w-full passwordWrapper'>
               <input
                 id='confirmpassword'
                 name='confirmpassword'
                 type={passwordType['confirmpassword'] ? 'text' : 'password'}
-                placeholder='Create a strong confirmpassword'
+                placeholder='Re-enter password'
                 className={` ${
                   errors.errMessage === 'Your password does not match'
                     ? 'errors'
@@ -232,14 +242,14 @@ const Signup = () => {
             </div>
           </article>
 
-          <article className='mt-8 w-full'>
+          <article className='mt-4 w-full'>
             <button className='main-btn w-full shadow-3xl' type='submit'>
               {loading['signup'] ? <Spinner /> : 'Create Account'}
             </button>
           </article>
         </form>
 
-        <div className='flex flex-col items-center justfy-center w-full mt-5'>
+        <div className='flex flex-col items-center justfy-center w-full mt-2'>
           {errors.error && <ErrorMessage message={errors.errMessage} />}
         </div>
       </article>

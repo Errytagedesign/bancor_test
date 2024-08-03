@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as API from '@/api/apis';
 import { useGlobalHooks } from '@/Hooks/globalHooks';
-import { FaCheckCircle } from 'react-icons/fa';
-import { RxCrossCircled } from 'react-icons/rx';
-import { IUserData } from '@/Interfaces/Auth';
 import Spinner from '@/spinner/Spinner';
 
 const Wallet = () => {

@@ -6,6 +6,7 @@ import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
+import BrandLogo from '@/components/BrandLogo';
 
 const ForgotPasswordRequest = () => {
   const { email, setEmail, setForgotID } = useGlobalContext();
@@ -94,6 +95,9 @@ const ForgotPasswordRequest = () => {
 
   return (
     <main className='signup flex flex-col items-center justify-center gap-5 w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
+      <article className='w-5/12 md:w-3/12 mx-auto my-4'>
+        <BrandLogo />
+      </article>
       <article className='text-center'>
         <h1>Forgot password?</h1>
         {codeSent ? (
@@ -121,7 +125,7 @@ const ForgotPasswordRequest = () => {
               id='code'
               name='code'
               type='number'
-              placeholder='Enter your email address'
+              placeholder='Enter code sent to your email'
               className='form-control'
               onChange={handleChange}
               required
