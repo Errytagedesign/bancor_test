@@ -26,3 +26,11 @@ export interface IUpdatePassword {
   oldPassword: string;
   newPassword: string;
 }
+export interface IUserData {
+  firstname: string;
+  lastname: string;
+  isEmailConfirmed: boolean;
+  phonenumber: string;
+  datecreated: string;
+  roleDetails: { roleName: string; roleId: number };
+}
