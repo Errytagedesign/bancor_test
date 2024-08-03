@@ -2,7 +2,7 @@ import * as API from '@/api/apis';
 import { Link, useNavigate } from 'react-router-dom';
 import { ISignUp } from '@/Interfaces/Auth';
 import { useGlobalHooks } from '@/Hooks/globalHooks';
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import Spinner from '@/spinner/Spinner';
 import ErrorMessage from '@/components/ErrorMessage';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';

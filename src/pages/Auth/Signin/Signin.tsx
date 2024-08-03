@@ -1,9 +1,7 @@
 import './login-screen.css';
-import * as Yup from 'yup';
 import * as API from '@/api/apis';
 
 import ErrorMessage from '@/components/ErrorMessage';
-import GetHelp from '../GetHelp';
 import { useCookies } from '@/Hooks/cookiesHook';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalHooks } from '@/Hooks/globalHooks';
@@ -56,13 +54,6 @@ const Signin = () => {
         setErrors({ error: true, errMessage: erroMessage.message });
       });
   };
-
-  const signUpSchema = Yup.object().shape({
-    password: Yup.string().required('Field cannot be empty'),
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email address is required'),
-  });
 
   return (
     <main className='categories flex justify-between min-h-screen bg-white'>
@@ -128,7 +119,6 @@ const Signin = () => {
             </form>
           </section>
         </section>
-        <GetHelp />
       </aside>
     </main>
   );
