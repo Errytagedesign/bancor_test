@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <div>
-<img src="ilemi-logo.png" alt="logo" width="140"  height="auto" />
+<img src="logo.png" alt="logo" width="140"  height="auto" />
   <br/>
   <h3><b>Bancor Test Project</b></h3>
 </div>
