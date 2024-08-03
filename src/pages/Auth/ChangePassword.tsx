@@ -1,9 +1,7 @@
-import './Signin/login-screen.css';
-import * as Yup from 'yup';
 import * as API from '@/api/apis';
 import { useGlobalHooks } from '@/Hooks/globalHooks';
 import Spinner from '@/spinner/Spinner';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ErrorMessage from '@/components/ErrorMessage';
 import toast from 'react-hot-toast';
 import { useGlobalContext } from '@/context/GlobalContext';
@@ -62,7 +60,7 @@ const ChangePassword = () => {
 
   return (
     <main className='signup flex flex-col items-center justify-center gap-5 w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
-      <article className='w-full md:w-3/12 mx-auto my-4'>
+      <article className='w-5/12 md:w-3/12 mx-auto my-4'>
         <BrandLogo />
       </article>
       <article className='text-center'>

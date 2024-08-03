@@ -39,3 +39,7 @@ export const getRoles = async () => {
 export const getCurrentUser = async () => {
   return await baseAPI.get(`/api/User/Profile`);
 };
+
+export const getMyWallet = async () => {
+  return await baseAPI.get(`/api/Wallet/MyWallet`);
+};

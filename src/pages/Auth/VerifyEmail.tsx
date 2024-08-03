@@ -8,6 +8,7 @@ import { useGlobalHooks } from '@/Hooks/globalHooks';
 import { useGlobalContext } from '@/context/GlobalContext';
 import ErrorMessage from '@/components/ErrorMessage';
 import Spinner from '@/spinner/Spinner';
+import BrandLogo from '@/components/BrandLogo';
 
 const numInput = [
   { id: '1', name: 'num1' },
@@ -52,8 +53,6 @@ const VerifyEmail = () => {
   };
 
   const handleVerifyEmail = async () => {
-    // e.preventDefault();
-
     if (Object.keys(verifyCode).some((code) => code === '')) {
       setErrors({
         error: true,
@@ -66,7 +65,7 @@ const VerifyEmail = () => {
     setLoading({ ['verify']: true });
 
     API.verifyEmail({
-      emailAddress: 'errytage@gmail.com',
+      emailAddress: email,
       activationCode: verificationCode,
     })
       .then((res) => {
@@ -119,16 +118,14 @@ const VerifyEmail = () => {
     }
   }, [verifyCode]);
 
-  // console.log(errors);
-
   return (
     <section
       className={` bg-white rounded-md px-3 py-10 md:px-8 w-11/12 md:w-5/12 mx-auto min-h-screen grid place-items-center`}
     >
-      <form
-        // onSubmit={handleVerifyEmail}
-        className='flex flex-col '
-      >
+      <article className='w-5/12 md:w-3/12 mx-auto my-4'>
+        <BrandLogo />
+      </article>
+      <form className='flex flex-col '>
         <hgroup className='text-center my-3'>
           <h4 className='font-bold mb-5'>Verify with email</h4>
 

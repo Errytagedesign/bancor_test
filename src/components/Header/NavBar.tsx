@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 import { useCookies } from '@/Hooks/cookiesHook';
 import './Navbar.scss';
@@ -16,11 +16,13 @@ const NavBar = () => {
   };
   return (
     <header className='navbar'>
-      <nav className=' container w-full flex items-center justify-between'>
-        <figure className='flex items-center gap-5 justify-between'>
-          <img src={logo} alt='Logo' className='h-8 w-auto' />
-        </figure>
-        <nav className='flex items-center gap-5'>
+      <nav className=' container w-full flex flex-wrap gap-y-4 items-center justify-between'>
+        <Link to='/' className='flex-1'>
+          <figure className='flex items-center gap-5 justify-between w-20 h-20'>
+            <img src={logo} alt='Logo' className='' />
+          </figure>
+        </Link>
+        <ul className='flex items-center gap-5 grow'>
           <NavLink
             to='/'
             className={({ isActive }) => (isActive ? 'active' : 'notActive')}
@@ -33,7 +35,7 @@ const NavBar = () => {
           >
             Wallet
           </NavLink>
-        </nav>
+        </ul>
 
         <div>
           <button onClick={logoutUser} className='negative-btn'>
