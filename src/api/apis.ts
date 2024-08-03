@@ -15,7 +15,7 @@ export const verifyEmail = async (formData: {
   return await baseAPI.post(`/api/Account/ConfirmActivationCode`, formData);
 };
 
-export const verifyPassword = async (formData: {
+export const verifyPasswordCode = async (formData: {
   emailAddress: string;
   code: string;
 }) => {

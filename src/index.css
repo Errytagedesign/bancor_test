@@ -139,12 +139,12 @@ em {
 }
 
 .negative-btn {
-  border: solid 1px var(--negative);
+  background: var(--negative);
   border-radius: 4px;
   padding: 0.6em 2em;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--negative);
+  color: var(--white);
 }
 
 .positive-btn {
@@ -240,6 +240,19 @@ select {
 }
 
 /* ====Inputs End ==== */
+
+.active {
+  color: var(--pryColor);
+  padding: 0.8em 1.5em;
+  border-bottom: solid 2px var(--pryColor);
+  font-weight: 700;
+}
+
+.notActive {
+  color: var(--black);
+  padding: 0.8em 1.5em;
+  font-weight: 700;
+}
 
 .errors {
   border: solid var(--negative) 1px !important;

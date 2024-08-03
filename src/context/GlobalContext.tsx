@@ -12,6 +12,8 @@ interface GlobalState {
   setEmail: (email: string) => void;
   isLoggedIn: boolean;
   setIsLoggedIn: (status: boolean) => void;
+  forgotID: number;
+  setForgotID: (forgotID: number) => void;
 }
 
 // Create the context with a default value
@@ -29,14 +31,27 @@ const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     return storedStatus ? JSON.parse(storedStatus) : false;
   });
 
+  const [forgotID, setForgotID] = useState<number>(() => {
+    const storedId = localStorage.getItem('forgotID');
+    return storedId ? JSON.parse(storedId) : '';
+  });
+
   useEffect(() => {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
     localStorage.setItem('userEmail', JSON.stringify(email));
-  }, [isLoggedIn, email]);
+    localStorage.setItem('forgotID', JSON.stringify(forgotID));
+  }, [isLoggedIn, email, forgotID]);
 
   return (
     <GlobalContext.Provider
-      value={{ email, setEmail, isLoggedIn, setIsLoggedIn }}
+      value={{
+        email,
+        setEmail,
+        isLoggedIn,
+        setIsLoggedIn,
+        forgotID,
+        setForgotID,
+      }}
     >
       {children}
     </GlobalContext.Provider>

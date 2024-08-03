@@ -10,16 +10,14 @@ import { useGlobalContext } from '@/context/GlobalContext';
 import { FormEvent, useState } from 'react';
 import BrandLogo from '@/components/BrandLogo';
 
-const initialValues = {
-  forgotID: 0,
-  newPassword: '',
-  confirmPassword: '',
-};
-
 const ChangePassword = () => {
   const navigate = useNavigate();
-  const { email } = useGlobalContext();
-  const [formData, setFormData] = useState(initialValues);
+  const { email, forgotID } = useGlobalContext();
+  const [formData, setFormData] = useState({
+    forgotID,
+    newPassword: '',
+    confirmPassword: '',
+  });
 
   const { errors, setErrors, setLoading, loading } = useGlobalHooks();
 
@@ -43,7 +41,7 @@ const ChangePassword = () => {
         console.log(res);
         setLoading({ ['changePass']: false });
 
-        // navigate('/password-reset-successfully');
+        navigate('/signin');
       })
       .catch((err) => {
         console.log(err);
@@ -74,26 +72,10 @@ const ChangePassword = () => {
       <form onSubmit={handleSubmit} className='w-full'>
         <article className=' w-full mt-5'>
           <input
-            id='forgotID'
-            name='forgotID'
-            type='number'
-            placeholder='Enter the code sent to your email'
-            className='form-control'
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                forgotID: parseInt(e.target.value),
-              }))
-            }
-            required
-          />
-        </article>
-        <article className=' w-full mt-5'>
-          <input
             id='newPassword'
             name='newPassword'
             type='text'
-            placeholder='Enter your password'
+            placeholder='Enter your new password'
             className='form-control'
             onChange={handleChange}
             required
@@ -104,7 +86,7 @@ const ChangePassword = () => {
             id='confirmPassword'
             name='confirmPassword'
             type='text'
-            placeholder='Enter your password'
+            placeholder='Confirm password'
             className='form-control'
             onChange={handleChange}
             required

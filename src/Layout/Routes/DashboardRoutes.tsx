@@ -10,7 +10,7 @@ interface Route {
 
 const dashboardRoutes: Route[] = [
   { path: '/', name: 'Profile', element: <Profile /> },
-  { path: '/orders', name: 'Orders', element: <Wallet /> },
+  { path: '/wallet', name: 'Orders', element: <Wallet /> },
 ];
 
 export default dashboardRoutes;

@@ -25,6 +25,7 @@ const Signup = () => {
   const [passwordType, setPasswordType] = useState<{ [key: string]: boolean }>(
     {},
   );
+
   const [formData, setFormData] = useState<ISignUp>(initialValues);
   const [rolesData, setRolesData] = useState([]);
   const navigate = useNavigate();
@@ -65,8 +66,6 @@ const Signup = () => {
         setLoading({ ['signup']: false });
       });
   };
-
-  console.log(formData);
 
   useEffect(() => {
     const fetchRoles = async () => {
