@@ -5,48 +5,60 @@ import ErrorMessage from '@/components/ErrorMessage';
 import { useCookies } from '@/Hooks/cookiesHook';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalHooks } from '@/Hooks/globalHooks';
-import { ISignIn } from '@/Interfaces/Auth';
 import toast from 'react-hot-toast';
 import Spinner from '@/spinner/Spinner';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
+import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
+import { useGlobalContext } from '@/context/GlobalContext';
 
 const initialValues = {
-  email: '',
+  emailAddress: '',
   password: '',
 };
 
 const Signin = () => {
   const { setCookies } = useCookies();
   const [formData, setFormData] = useState(initialValues);
-
+  const [passwordType, setPasswordType] = useState(false);
   const navigate = useNavigate();
   const { errors, setErrors, loading, setLoading } = useGlobalHooks();
 
-  const handleSubmit = async () => {
+  const { setIsLoggedIn } = useGlobalContext();
+
+  const showPassword = () => {
+    setPasswordType(!passwordType);
+  };
+
+  const handleChange = (e: FormEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target as HTMLInputElement;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setLoading({ ['signin']: true });
 
     API.SignIn(formData)
       .then((res) => {
-        const successMessage = {
-          success: true,
-          message: res.status === 200 ? 'User logged in successfuly' : '',
-        };
+        console.log(res);
 
-        const userToken = res.data?.data?.token.access.token;
-
-        toast.success(successMessage.message);
-
-        setCookies('userToken', userToken);
-
+        const userToken = res.data?.token;
+        toast.success('User Singin Successfully');
+        setCookies('rancUserToken', userToken);
+        setIsLoggedIn(true);
         setLoading({ ['signin']: false });
         navigate('/');
       })
       .catch((err) => {
+        console.log(err);
         const erroMessage = {
           success: false,
           message:
             err && err.response
-              ? err.response.data.message
+              ? err.response.data.errorMessage
               : 'We encounter an error',
         };
         setLoading({ ['signin']: false });
@@ -56,70 +68,73 @@ const Signin = () => {
   };
 
   return (
-    <main className='categories flex justify-between min-h-screen bg-white'>
-      <aside className='white w-full lg:w-[60%] flex flex-col justify-between py-5 px-5 lg:px-10'>
-        <section className=''>
-          <section className='categoryS'>
-            <article>
-              <h1>Welcome Back, Kindly Login</h1>
-              <h5>
-                Don&apos;t have an account?{' '}
-                <Link to='/signup'>Create Account Here</Link>
-              </h5>
-            </article>
-            <form onSubmit={handleSubmit}>
-              <article className=' w-full '>
-                <input
-                  id='email'
-                  name='email'
-                  type='email'
-                  placeholder='Enter your email address'
-                  required
-                />
-              </article>
-              <article className=' w-full mt-3'>
-                <input
-                  id='password'
-                  name='password'
-                  type='password'
-                  placeholder='Create a strong password'
-                  required
-                />
-              </article>
-              <article className='flex items-center gap-2'>
-                <input type='checkbox' name='keep' />
-
-                <small className='!m-0 !p-0'>Keep me logged in</small>
-              </article>
-
-              <article className='mt-5 w-full '>
-                <button
-                  style={{ boxShadow: '0px 8px 20px 0px #4E60FF29' }}
-                  className='main-btn w-full'
-                  type='submit'
-                >
-                  {loading['signin'] ? <Spinner /> : 'Login'}
-                </button>
-
-                <div className='text-center   w-full mt-3'>
-                  <Link
-                    to='/forgot-password'
-                    className='font-semibold text-[var(--pryColor)]  '
-                  >
-                    Forgot password
-                  </Link>
-                </div>
-              </article>
-
-              <div className='flex flex-col items-center justfy-center w-full mt-5'>
-                {!loading && errors.error && (
-                  <ErrorMessage message={errors.errMessage} />
-                )}
-              </div>
-            </form>
-          </section>
+    <main className='signup flex flex-col items-center justify-center gap-5 w-11/12 md:w-6/12 mx-auto min-h-screen my-auto bg-white'>
+      <article className='text-center'>
+        <h1>Welcome Back, Kindly Login</h1>
+        <h5>
+          Don&apos;t have an account?{' '}
+          <Link to='/signup'>Create Account Here</Link>
+        </h5>
+      </article>
+      <form
+        className={`form flex flex-col justify-between mt-5 w-full`}
+        onSubmit={handleSubmit}
+      >
+        <section className='mb-3'>
+          <label htmlFor='emailAddress' className='labelTitle'>
+            {' '}
+            Email Address
+          </label>
+          <div>
+            <input
+              type='email'
+              id='emailAddress'
+              name='emailAddress'
+              placeholder='example@gmail.com'
+              defaultValue={formData.emailAddress}
+              onChange={handleChange}
+              className='form-control'
+              required
+            />
+          </div>
         </section>
-      </aside>
+        <section className='w-full mb-3'>
+          <label htmlFor='email' className='labelTitle'>
+            {' '}
+            Password
+          </label>
+          <div className={` passwordWrapper w-full`}>
+            <input
+              id='password'
+              type={!passwordType ? 'password' : 'text'}
+              name='password'
+              placeholder='enter your password'
+              defaultValue={formData.password}
+              onChange={handleChange}
+              className={` formInput  form-control `}
+              required
+            />{' '}
+            <div onClick={showPassword} className='icon'>
+              {!passwordType ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
+            </div>
+          </div>
+
+          <div className=' font-bold text-end mt-2'>
+            <Link to='/resetpasswordrequest' className='!text-pryColor'>
+              Forgot Password
+            </Link>
+          </div>
+        </section>
+
+        <div className=' w-full text-center'>
+          <button className='main-btn w-full mt-1' type='submit'>
+            {loading['signin'] ? <Spinner /> : 'Log In'}
+          </button>
+        </div>
+        <div className='flex flex-col items-center justfy-center w-full mt-5'>
+          {errors.error && <ErrorMessage message={errors.errMessage} />}
+        </div>
+      </form>
     </main>
   );
 };

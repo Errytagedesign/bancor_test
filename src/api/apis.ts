@@ -5,7 +5,7 @@ export const SignUp = async (formData: ISignUp) => {
   return await baseAPI.post('/api/Account/Register', formData);
 };
 export const SignIn = async (formData: ISignIn) => {
-  return await baseAPI.post('/auth/login', formData);
+  return await baseAPI.post('/api/Account/Authenticate', formData);
 };
 
 export const verifyEmail = async (formData: {
