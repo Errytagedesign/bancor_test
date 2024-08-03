@@ -1,0 +1,17 @@
+.signup {
+  .passwordWrapper {
+    position: relative;
+    .icon {
+      position: absolute;
+      right: 5%;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      margin: 0;
+      color: var(--Grey1);
+    }
+  }
+}
