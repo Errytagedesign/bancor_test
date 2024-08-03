@@ -20,26 +20,11 @@ export const useGlobalHooks = () => {
     return formattedDate;
   };
 
-  const formatTime = (TimeString: Date) => {
-    const Time = new Date(TimeString);
-    const hours = Time.getHours();
-    const minutes = Time.getMinutes();
-    const amOrPm = hours >= 12 ? 'PM' : 'AM';
-
-    // Convert hours to 12-hour format
-    const formattedHours = hours % 12 || 12;
-
-    const timePart = `${formattedHours}:${minutes} ${amOrPm}`;
-
-    return timePart;
-  };
-
   return {
     loading,
     setLoading,
     errors,
     setErrors,
     formatDate,
-    formatTime,
   };
 };
