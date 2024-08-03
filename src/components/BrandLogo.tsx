@@ -5,7 +5,7 @@ const BrandLogo = () => {
   return (
     <Link to='/' className='flex'>
       <figure>
-        <img src={Logo} alt='Brand logo' />
+        <img src={Logo} alt='Brand logo' className='!w-full !h-auto' />
       </figure>
     </Link>
   );
