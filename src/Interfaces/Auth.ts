@@ -9,6 +9,8 @@ export interface ISignUp {
   emailaddress: string;
   phonenumber: string;
   password: string;
+  confirmpassword: string;
+  role: number;
 }
 
 export interface IResetPassword {

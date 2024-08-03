@@ -29,3 +29,7 @@ export const requestPasswordChange = async (formData: { email: string }) => {
 export const resetPassword = async (formData: IResetPassword, token: any) => {
   return await baseAPI.post(`/auth/reset-password?token=${token}`, formData);
 };
+
+export const getRoles = async () => {
+  return await baseAPI.get(`/api/Role/Roles`);
+};

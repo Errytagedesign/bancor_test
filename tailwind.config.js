@@ -4,8 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        pryColor: '#400080',
-        bgPryColor: '#53127d',
+        pryColor: '#53127d',
         secColor: '#ffa24f',
         white: '#fff',
         black: '#131214',
